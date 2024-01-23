@@ -1,0 +1,115 @@
+@media (max-width: 318px) {
+  :root {
+    font-size: 8px;
+  }
+}
+
+@media (min-width: 319px) and (max-width: 480px) {
+  :root {
+    font-size: 10px;
+  }
+}
+
+@media (min-width: 481px) and (max-width: 1200px) {
+  :root {
+    font-size: 12px;
+  }
+}
+
+@media (min-width: 1201px) and (max-width: 1600px) {
+  :root {
+    font-size: 14px;
+  }
+}
+
+@media (min-width: 1601px) {
+  :root {
+    font-size: 16px;
+  }
+}
+
+
+body{
+  background-color: azure;
+  margin: 0;
+  padding: 1rem;
+  transition: 200ms;
+}
+
+.main > .logo{
+  position: relative;
+  margin-left: 2rem;
+  top: 1rem;
+  width: 16rem;
+  height: 3rem;
+}
+
+.main > h1 {
+  width: 40%;
+  font-size: 4rem;
+  display: block;
+  margin-left: 2rem;
+}
+
+.main > h1 > span {
+ Color : blue;
+}
+
+
+@media (max-width: 849px) {
+  .main > .card{
+    background-color: antiquewhite;
+    padding: 1.5%;
+    border-radius: 0.3rem;
+    width: 100%;
+    margin: 2rem;
+  }
+
+  .tile-image {
+    float: left;
+    width: 12rem;
+    display: inline;
+    margin: 0.3rem;
+    margin-right: 0.5rem;
+  }
+  
+}
+
+
+@media (min-width: 850px) {
+  .main > .card{
+    background-color: antiquewhite;
+    padding: 1%;
+    border-radius: 0.3rem;
+    width: 45%;
+  }
+
+  .tile-image {
+    float: left;
+    width: 14rem;
+    display: inline;
+    margin: 0.3rem;
+    margin-right: 0.5rem;
+  }
+  
+  
+  .main > .left{
+    float: left;
+    margin-left: 2rem;
+  }
+  
+  .main > .right{
+    float: right;
+    margin-right: 2rem;
+  }
+}
+
+footer{
+  clear: both;
+  text-align: right;
+  color: midnightblue;
+}
+
+
+
+
