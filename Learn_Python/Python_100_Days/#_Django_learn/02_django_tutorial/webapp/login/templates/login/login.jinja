@@ -1,0 +1,64 @@
+{% extends "base_apps.jinja" %}
+{% block content %}
+    <h1>{{ name }}</h1>
+    <!-- Section: Design Block -->
+    <section class="">
+        <!-- Jumbotron -->
+        <div class="px-4 py-5 px-md-5 text-center text-lg-start"
+             style="background-color: hsl(0, 0%, 96%)">
+            <div class="container">
+                <div class="row gx-lg-5 align-items-center">
+                    <div class="col-lg-6 mb-5 mb-lg-0">
+                        <h1 class="my-5 display-3 fw-bold ls-tight">
+                            The best offer
+                            <br />
+                            <span class="text-light bg-dark rounded">for your business</span>
+                        </h1>
+                        <p style="color: hsl(217, 10%, 50.8%)">
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                            Eveniet, itaque accusantium odio, soluta, corrupti aliquam
+                            quibusdam tempora at cupiditate quis eum maiores libero
+                            veritatis? Dicta facilis sint aliquid ipsum atque?
+                        </p>
+                    </div>
+                    <div class="col-lg-6 mb-5 mb-lg-0">
+                        <div class="card">
+                            <div class="card-body bg-secondary-subtle shadow-lg py-5 px-md-5">
+                                <form class="user" action="" method="POST">
+                                    {% csrf_token %}
+                                    <!-- Username input -->
+                                    <div class="form-outline mb-4">
+                                        <label class="form-label" for="Username">Username</label>
+                                        {{ form.username }}
+                                    </div>
+                                    <!-- Password input -->
+                                    <div class="form-outline mb-4">
+                                        <label class="form-label" for="Password">Password</label>
+                                        {{ form.password }}
+                                    </div>
+                                    <!-- Checkbox -->
+                                    <div class="form-check d-flex justify-content-left mb-4">
+                                        <input class="form-check-input me-2"
+                                               type="checkbox"
+                                               value=""
+                                               id="form2Example33"
+                                               checked />
+                                        <label class="form-check-label" for="form2Example33">keep it login</label>
+                                    </div>
+                                    <!-- Submit button -->
+                                    <button type="submit"
+                                            value="login"
+                                            name="submit"
+                                            class="btn btn-dark btn-block mb-4">Login</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Jumbotron -->
+    </section>
+    <!-- Section: Design Block -->
+    <script language="javascript" type="text/javascript"></script>
+{% endblock content %}

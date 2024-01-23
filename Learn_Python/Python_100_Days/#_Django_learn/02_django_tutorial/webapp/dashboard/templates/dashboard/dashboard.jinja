@@ -1,0 +1,16 @@
+{% extends "base_apps.jinja" %}
+{% load static %}
+{% block content %}
+    <div class="p-5 mb-4 bg-body-tertiary rounded-3">
+        <div class="container-fluid py-5">
+            <h1 class="display-5 fw-bold">{{ name }}{{ request.user }}</h1>
+            <p class="col-md-8 fs-4">
+                Using a series of utilities, you can create this jumbotron, just like the one in previous versions of Bootstrap. Check out the examples below for how you can remix and restyle it to your liking.
+            </p>
+            <a class="btn btn-outline-dark btn-lg"
+               type="button"
+               href="{% url 'logout' %}">logout</a>
+        </div>
+    </div>
+    <script language="javascript" type="text/javascript"></script>
+{% endblock content %}
