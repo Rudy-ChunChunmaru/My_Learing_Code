@@ -54,7 +54,7 @@ const Benefits = ({setSelectedPage}: Props) => {
                 className="md:my-5 md:w-3/5"
                 initial="hidden"
                 whileInView="visible"
-                viewport={{ once:false, amount:0.5}}
+                viewport={{ once:true, amount:0.5}}
                 variants={{
                     hidden : {opacity : 0, x : -50},
                     visible:{opacity : 1, x : 0}
@@ -67,7 +67,7 @@ const Benefits = ({setSelectedPage}: Props) => {
             </motion.div>
 
             {/* BENEFITS */}
-            <motion.div 
+            <motion.div
                 className="mt-5 items-center justify-between gap-8 md:flex"
                 initial="hidden"
                 whileInView="visible"
@@ -90,12 +90,11 @@ const Benefits = ({setSelectedPage}: Props) => {
             </motion.div>
 
             {/* GRAPHICS AND DESCRIPTION */}
-            <div>
+            <div className="mt-16 items-center justify-between gap-20 md:mt-28 md:flex">
                 {/* GRAPHICS */}
                 <img className="mx-auto" alt="benefits-page-graphic" src={BenefitsPageGraphic} />
 
                 {/* DESCRIPTION */}
-                
                 <div>
                     {/* TITLE */}
                     <div 
@@ -104,24 +103,40 @@ const Benefits = ({setSelectedPage}: Props) => {
                         <div
                             className="before:absolute before:-top-20 before:-left-20 before:z-[-1] before:content-abstractwaves"
                         >
-                            <div>
+                            <motion.div
+                                initial="hidden"
+                                whileInView="visible"
+                                viewport={{ once:true, amount:0.5}}
+                                variants={{
+                                    hidden : {opacity : 0, x : -50},
+                                    visible:{opacity : 1, x : 0}
+                                }}
+                            >
                                 <HText>
                                     MILLIONS OF HAPPY MEMBERS GETTING {" "}
                                     <span className="text-primary-500">FIT</span>
                                 </HText>
-                            </div>
+                            </motion.div>
                         </div>
                     </div>
 
                     {/* DESCRIPTION */}
-                    <div>
+                    <motion.div
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once:true, amount:0.5}}
+                        variants={{
+                            hidden : {opacity : 0, x : -50},
+                            visible:{opacity : 1, x : 0}
+                        }}
+                    >
                         <p className="my-5">
                             Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia.
                         </p>
                         <p className="mb-5">
                             Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia.
                         </p>
-                    </div>
+                    </motion.div>
 
                     {/* BUTTON */}
                     <div className="relative mt-16">
