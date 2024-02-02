@@ -8,7 +8,7 @@ import image6 from '@/assets/image6.png'
 import { motion } from 'framer-motion';
 import HText from '@/shared/HText'
 import { ClassType } from '@/shared/types'
-import Class from './class'
+import Class from './Class'
 
 const classes: Array<ClassType> = [
     {
@@ -88,7 +88,7 @@ const OurClasses = ({ setSelectedPage }: Props) => {
                         <Class 
                             key={`${item.name}-${index}`}
                             name = {item.name}
-                            descrpition = {item.description}
+                            description = {item.description}
                             image = {item.image}
                         />
                     ))}
