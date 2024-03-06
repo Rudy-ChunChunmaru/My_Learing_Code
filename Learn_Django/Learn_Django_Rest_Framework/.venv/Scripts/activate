@@ -38,7 +38,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="E:\Learn_Django_Rest_Framework\.venv"
+VIRTUAL_ENV="E:\00_Work\05_git\My_Learing_Code\Learn_Django\Learn_Django_Rest_Framework\.venv"
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"
