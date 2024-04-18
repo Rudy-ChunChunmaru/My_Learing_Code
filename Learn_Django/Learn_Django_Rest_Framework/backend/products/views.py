@@ -2,10 +2,14 @@
 
 from .models import Product 
 from .serializers import ProductSerializers
+from api.permissions import IsStaffEditorPremission
+from api.mixins import StaffEditorPermissionsMixin
+from api.authentication import TokenAuthentication
 
 from rest_framework import authentication, generics, mixins, permissions
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
+
 
 #django
 from django.shortcuts import get_object_or_404
@@ -26,31 +30,6 @@ class ProductCreateApiView(
 
 product_createa_view = ProductCreateApiView.as_view()
 
-class ProductDetailAPIView(generics.RetrieveAPIView):
-    queryset = Product.objects.all()
-    serializer_class = ProductSerializers
-    
-product_detail_view = ProductDetailAPIView.as_view()
-
-class ProductUpdateAPIView(generics.UpdateAPIView):
-    queryset = Product.objects.all()
-    serializer_class = ProductSerializers
-
-    def perform_update(self, serializer):
-        instance = serializer.save()
-        if not instance.content:
-            instance.content = instance.title
-    
-product_update_view = ProductUpdateAPIView.as_view()
-
-class ProductDeleteAPIView(generics.DestroyAPIView):
-    queryset = Product.objects.all()
-    serializer_class = ProductSerializers
-
-    def perform_destroy(self, instance):
-        super().perform_destroy(instance)
-
-product_delete_view = ProductDeleteAPIView.as_view()
 
 class ProductListAPIView(generics.ListAPIView):
     '''
@@ -61,16 +40,30 @@ class ProductListAPIView(generics.ListAPIView):
     
 product_list_view = ProductListAPIView.as_view()
 
-class ProductListCreateApiView(generics.ListCreateAPIView):
+# ------------------------------------------------------------------------------------------------
+
+class ProductListCreateApiView(StaffEditorPermissionsMixin,generics.ListCreateAPIView
+    ):
     queryset = Product.objects.all()
     serializer_class = ProductSerializers
-    authentication_classes = [authentication.SessionAuthentication]
+    
+    # digantikan dengan setting --------------------------
+    # authentication_classes = [
+    #     authentication.SessionAuthentication,
+    #     TokenAuthentication
+    # ]
+    # digantikan dengan setting --------------------------
+
+    # permission_classes = [permissions.IsAuthenticated]
     # permission_classes = [permissions.IsAuthenticatedOrReadOnly]
-    permission_classes = [permissions.DjangoModelPermissions]
+    # permission_classes = [permissions.DjangoModelPermissions]
+    # permission_classes = [permissions.IsAdminUser ,IsStaffEditorPremission]
 
     def perform_create(self, serializer):
+        # print(serializer.validated_data)
+        email = serializer.validated_data.pop('email')
+        print(email)
 
-        print(serializer.validated_data)
         title = serializer.validated_data.get('title')
         content = serializer.validated_data.get('content')
         if content is None:
@@ -78,6 +71,33 @@ class ProductListCreateApiView(generics.ListCreateAPIView):
         serializer.save(content=content)
 
 product_list_createa_view = ProductListCreateApiView.as_view()
+
+
+class ProductUpdateAPIView(StaffEditorPermissionsMixin,generics.UpdateAPIView):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializers
+
+    def perform_update(self, serializer):
+        instance = serializer.save()
+        if not instance.content:
+            instance.content = instance.title
+    
+product_update_view = ProductUpdateAPIView.as_view()
+
+class ProductDeleteAPIView(StaffEditorPermissionsMixin,generics.DestroyAPIView):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializers
+
+    def perform_destroy(self, instance):
+        super().perform_destroy(instance)
+
+product_delete_view = ProductDeleteAPIView.as_view()
+
+class ProductDetailAPIView(StaffEditorPermissionsMixin,generics.RetrieveAPIView):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializers
+    
+product_detail_view = ProductDetailAPIView.as_view()
 
 #  -----------------------------------------------------------------------------------------------
 
