@@ -14,7 +14,21 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserController = void 0;
 const common_1 = require("@nestjs/common");
+const user_service_1 = require("./user.service");
+const connection_1 = require("../connection/connection");
 let UserController = class UserController {
+    constructor(service_constructor, connection) {
+        this.service_constructor = service_constructor;
+        this.connection = connection;
+    }
+    async getConnection() {
+        const test = this.connection;
+        return test.getName();
+    }
+    async sayHello(name) {
+        const test = this.private_inject;
+        return test.sayhello(name);
+    }
     viewhello(name, respones) {
         respones.render('index.html', {
             title: 'Tamplate Engine',
@@ -61,6 +75,23 @@ let UserController = class UserController {
     }
 };
 exports.UserController = UserController;
+__decorate([
+    (0, common_1.Get)('/getconnection'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], UserController.prototype, "getConnection", null);
+__decorate([
+    (0, common_1.Inject)(),
+    __metadata("design:type", user_service_1.UserService)
+], UserController.prototype, "private_inject", void 0);
+__decorate([
+    (0, common_1.Get)('/helloo'),
+    __param(0, (0, common_1.Query)('name')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], UserController.prototype, "sayHello", null);
 __decorate([
     (0, common_1.Get)('/view/hello'),
     __param(0, (0, common_1.Query)('name')),
@@ -141,6 +172,8 @@ __decorate([
     __metadata("design:returntype", String)
 ], UserController.prototype, "get", null);
 exports.UserController = UserController = __decorate([
-    (0, common_1.Controller)('/api/users')
+    (0, common_1.Controller)('/api/users'),
+    __metadata("design:paramtypes", [user_service_1.UserService,
+        connection_1.Connection])
 ], UserController);
 //# sourceMappingURL=user.controller.js.map

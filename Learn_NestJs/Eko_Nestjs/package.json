@@ -5,6 +5,7 @@
   },
   "devDependencies": {
     "@types/cookie-parser": "^1.4.7",
-    "@types/mustache-express": "^1.2.5"
+    "@types/mustache-express": "^1.2.5",
+    "node-mocks-http": "^1.14.1"
   }
 }

@@ -1,7 +1,15 @@
 /// <reference types="cookie-parser" />
 import { HttpRedirectResponse } from '@nestjs/common';
 import { Request, Response } from 'express';
+import { UserService } from './user.service';
+import { Connection } from '../connection/connection';
 export declare class UserController {
+    private service_constructor;
+    private connection;
+    constructor(service_constructor: UserService, connection: Connection);
+    getConnection(): Promise<string>;
+    private_inject: UserService;
+    sayHello(name: string): Promise<string>;
     viewhello(name: string, respones: Response): void;
     setcookie(name: string, response: Response): void;
     getcookie(request: Request): string;

@@ -1,20 +1,60 @@
 import {
+  // nest
   Controller,
   Get,
   Post,
-  Req,
   Query,
   Param,
-  Res,
   Header,
   HttpCode,
   HttpRedirectResponse,
   Redirect,
+  Res,
+  Req,
+  Inject,
 } from '@nestjs/common';
-import { Request, Response } from 'express';
+import {
+  // expressjs
+  Request,
+  Response,
+} from 'express';
+import { UserService } from './user.service';
+import { Connection } from '../connection/connection';
 
 @Controller('/api/users')
 export class UserController {
+  constructor(
+    private service_constructor: UserService,
+    private connection: Connection,
+  ) {}
+  // --------------------------------------------- constructor connection server
+  // constructor(
+  //   private connection: Connection,
+  // ) {}
+
+  @Get('/getconnection')
+  async getConnection(): Promise<string> {
+    const test = this.connection;
+    return test.getName();
+  }
+
+  // ---------------------------------------------
+
+  // --------------------------------------------- Inject or constructor service
+  // constructor(
+  //   private service_constructor: UserService,
+  // ) {}
+
+  @Inject()
+  private_inject: UserService;
+
+  @Get('/helloo')
+  async sayHello(@Query('name') name: string): Promise<string> {
+    const test = this.private_inject;
+    return test.sayhello(name);
+  }
+  //  -----------------------------------------------------------
+
   // --------------------------------------------- mustache
   @Get('/view/hello')
   viewhello(@Query('name') name: string, @Res() respones: Response) {
