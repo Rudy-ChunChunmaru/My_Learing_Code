@@ -16,10 +16,30 @@ exports.UserController = void 0;
 const common_1 = require("@nestjs/common");
 const user_service_1 = require("./user.service");
 const connection_1 = require("../connection/connection");
+const mail_service_1 = require("../mail/mail.service");
+const user_repository_1 = require("../user-repository/user-repository");
+const member_service_1 = require("../member/member.service");
 let UserController = class UserController {
-    constructor(service_constructor, connection) {
+    constructor(service_constructor, connection, mailService, emailService, userRepository, memberService) {
         this.service_constructor = service_constructor;
         this.connection = connection;
+        this.mailService = mailService;
+        this.emailService = emailService;
+        this.userRepository = userRepository;
+        this.memberService = memberService;
+    }
+    memberservice() {
+        console.info(this.memberService.getConnectionName());
+        this.memberService.sendEmail();
+    }
+    sendEmail() {
+        this.emailService.send();
+    }
+    userRepo() {
+        this.userRepository.save();
+    }
+    sendmail() {
+        this.mailService.send();
     }
     async getConnection() {
         const test = this.connection;
@@ -75,6 +95,30 @@ let UserController = class UserController {
     }
 };
 exports.UserController = UserController;
+__decorate([
+    (0, common_1.Get)('/memberservice'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", void 0)
+], UserController.prototype, "memberservice", null);
+__decorate([
+    (0, common_1.Get)('/sendemail'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", void 0)
+], UserController.prototype, "sendEmail", null);
+__decorate([
+    (0, common_1.Get)('/userReposave'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", void 0)
+], UserController.prototype, "userRepo", null);
+__decorate([
+    (0, common_1.Get)('/sendmail'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", void 0)
+], UserController.prototype, "sendmail", null);
 __decorate([
     (0, common_1.Get)('/getconnection'),
     __metadata("design:type", Function),
@@ -173,7 +217,12 @@ __decorate([
 ], UserController.prototype, "get", null);
 exports.UserController = UserController = __decorate([
     (0, common_1.Controller)('/api/users'),
+    __param(3, (0, common_1.Inject)('EmailService')),
     __metadata("design:paramtypes", [user_service_1.UserService,
-        connection_1.Connection])
+        connection_1.Connection,
+        mail_service_1.MailService,
+        mail_service_1.MailService,
+        user_repository_1.UserRepository,
+        member_service_1.MemberService])
 ], UserController);
 //# sourceMappingURL=user.controller.js.map

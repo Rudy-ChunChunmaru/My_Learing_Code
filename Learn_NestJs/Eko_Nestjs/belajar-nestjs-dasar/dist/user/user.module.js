@@ -12,6 +12,9 @@ const user_controller_1 = require("./user/user.controller");
 const user_service_1 = require("./user/user.service");
 const connection_1 = require("./connection/connection");
 const mail_service_1 = require("./mail/mail.service");
+const user_repository_1 = require("./user-repository/user-repository");
+const member_service_1 = require("./member/member.service");
+const config_1 = require("@nestjs/config");
 let UserModule = class UserModule {
 };
 exports.UserModule = UserModule;
@@ -22,12 +25,23 @@ exports.UserModule = UserModule = __decorate([
             user_service_1.UserService,
             {
                 provide: connection_1.Connection,
-                useClass: process.env.DATABASE == 'mysql' ? connection_1.MySQLConnect : connection_1.MongoDBConnect,
+                useFactory: connection_1.createConnection,
+                inject: [config_1.ConfigService],
             },
             {
                 provide: mail_service_1.MailService,
                 useValue: mail_service_1.mailService,
             },
+            {
+                provide: 'EmailService',
+                useExisting: mail_service_1.MailService,
+            },
+            {
+                provide: user_repository_1.UserRepository,
+                useFactory: user_repository_1.createUserRepository,
+                inject: [connection_1.Connection],
+            },
+            member_service_1.MemberService,
         ],
     })
 ], UserModule);

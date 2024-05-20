@@ -20,13 +20,65 @@ import {
 } from 'express';
 import { UserService } from './user.service';
 import { Connection } from '../connection/connection';
+import { MailService } from '../mail/mail.service';
+import { UserRepository } from '../user-repository/user-repository';
+import { MemberService } from '../member/member.service';
 
 @Controller('/api/users')
 export class UserController {
   constructor(
     private service_constructor: UserService,
     private connection: Connection,
+    private mailService: MailService,
+    @Inject('EmailService')
+    private emailService: MailService,
+    private userRepository: UserRepository,
+    private memberService: MemberService,
   ) {}
+
+  // --------------------------------------------- module ref member
+  // constructor(
+  //     @Inject('EmailService')
+  //       private emailService: MailService,
+  // ) {}
+  @Get('/memberservice')
+  memberservice(): void {
+    console.info(this.memberService.getConnectionName());
+    this.memberService.sendEmail();
+  }
+  // ---------------------------------------------
+
+  // --------------------------------------------- send mail
+  // constructor(
+  //     @Inject('EmailService')
+  //       private emailService: MailService,
+  // ) {}
+  @Get('/sendemail')
+  sendEmail(): void {
+    this.emailService.send();
+  }
+  // ---------------------------------------------
+
+  // --------------------------------------------- user repo
+  // constructor(
+  //   private mailService: MailService,
+  // ) {}
+  @Get('/userReposave')
+  userRepo(): void {
+    this.userRepository.save();
+  }
+  // ---------------------------------------------
+
+  // --------------------------------------------- send mail
+  // constructor(
+  //   private mailService: MailService,
+  // ) {}
+  @Get('/sendmail')
+  sendmail(): void {
+    this.mailService.send();
+  }
+  // ---------------------------------------------
+
   // --------------------------------------------- constructor connection server
   // constructor(
   //   private connection: Connection,
