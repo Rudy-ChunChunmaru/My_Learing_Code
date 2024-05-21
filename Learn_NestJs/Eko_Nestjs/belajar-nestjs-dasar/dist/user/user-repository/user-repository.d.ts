@@ -1,6 +1,7 @@
-import { Connection } from '../connection/connection';
+import { User } from '@prisma/client';
+import { PrismaService } from 'src/prisma/prisma/prisma.service';
 export declare class UserRepository {
-    connection: Connection;
-    save(): void;
+    private prismaService;
+    constructor(prismaService: PrismaService);
+    save(firstname: string, lastname?: string): Promise<User>;
 }
-export declare function createUserRepository(connection: Connection): UserRepository;

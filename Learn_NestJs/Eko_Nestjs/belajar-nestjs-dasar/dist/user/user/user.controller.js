@@ -28,15 +28,15 @@ let UserController = class UserController {
         this.userRepository = userRepository;
         this.memberService = memberService;
     }
+    async create(firstname, lastname) {
+        return this.userRepository.save(firstname, lastname);
+    }
     memberservice() {
         console.info(this.memberService.getConnectionName());
         this.memberService.sendEmail();
     }
     sendEmail() {
         this.emailService.send();
-    }
-    userRepo() {
-        this.userRepository.save();
     }
     sendmail() {
         this.mailService.send();
@@ -96,6 +96,14 @@ let UserController = class UserController {
 };
 exports.UserController = UserController;
 __decorate([
+    (0, common_1.Get)('/create'),
+    __param(0, (0, common_1.Query)('firstname')),
+    __param(1, (0, common_1.Query)('lastname')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, String]),
+    __metadata("design:returntype", Promise)
+], UserController.prototype, "create", null);
+__decorate([
     (0, common_1.Get)('/memberservice'),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
@@ -107,12 +115,6 @@ __decorate([
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", void 0)
 ], UserController.prototype, "sendEmail", null);
-__decorate([
-    (0, common_1.Get)('/userReposave'),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", void 0)
-], UserController.prototype, "userRepo", null);
 __decorate([
     (0, common_1.Get)('/sendmail'),
     __metadata("design:type", Function),
