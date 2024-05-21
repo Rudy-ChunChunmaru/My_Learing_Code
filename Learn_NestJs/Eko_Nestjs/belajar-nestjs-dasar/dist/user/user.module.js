@@ -15,13 +15,12 @@ const mail_service_1 = require("./mail/mail.service");
 const user_repository_1 = require("./user-repository/user-repository");
 const member_service_1 = require("./member/member.service");
 const config_1 = require("@nestjs/config");
-const prisma_module_1 = require("../prisma/prisma.module");
 let UserModule = class UserModule {
 };
 exports.UserModule = UserModule;
 exports.UserModule = UserModule = __decorate([
     (0, common_1.Module)({
-        imports: [prisma_module_1.PrismaModule],
+        imports: [],
         controllers: [user_controller_1.UserController],
         providers: [
             user_service_1.UserService,

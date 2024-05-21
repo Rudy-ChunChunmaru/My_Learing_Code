@@ -5,9 +5,12 @@ const app_module_1 = require("./app.module");
 const cookieParser = require("cookie-parser");
 const mustache = require("mustache-express");
 const config_1 = require("@nestjs/config");
+const nest_winston_1 = require("nest-winston");
 async function bootstrap() {
     const app = await core_1.NestFactory.create(app_module_1.AppModule);
     app.use(cookieParser('MY SECRET KEY'));
+    const loggerService = app.get(nest_winston_1.WINSTON_MODULE_NEST_PROVIDER);
+    app.useLogger(loggerService);
     app.set('views', __dirname + '/../views');
     app.set('view engine', 'html');
     app.engine('html', mustache());

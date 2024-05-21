@@ -13,12 +13,27 @@ const app_service_1 = require("./app.service");
 const user_module_1 = require("./user/user.module");
 const config_1 = require("@nestjs/config");
 const prisma_module_1 = require("./prisma/prisma.module");
+const nest_winston_1 = require("nest-winston");
+const validation_module_1 = require("./validation/validation.module");
+const winston = require("winston");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
 exports.AppModule = AppModule = __decorate([
     (0, common_1.Module)({
-        imports: [config_1.ConfigModule.forRoot({ isGlobal: true }), user_module_1.UserModule, prisma_module_1.PrismaModule],
+        imports: [
+            validation_module_1.ValidationModule.forRoot(true),
+            nest_winston_1.WinstonModule.forRoot({
+                format: winston.format.json(),
+                level: 'debug',
+                transports: [new winston.transports.Console()],
+            }),
+            config_1.ConfigModule.forRoot({
+                isGlobal: true,
+            }),
+            user_module_1.UserModule,
+            prisma_module_1.PrismaModule,
+        ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],
     })
