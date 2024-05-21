@@ -16,7 +16,14 @@ const prisma_module_1 = require("./prisma/prisma.module");
 const nest_winston_1 = require("nest-winston");
 const validation_module_1 = require("./validation/validation.module");
 const winston = require("winston");
+const log_middleware_1 = require("./log/log.middleware");
 let AppModule = class AppModule {
+    configure(consumer) {
+        consumer.apply(log_middleware_1.LogMiddleware).forRoutes({
+            path: '/api/*',
+            method: common_1.RequestMethod.ALL,
+        });
+    }
 };
 exports.AppModule = AppModule;
 exports.AppModule = AppModule = __decorate([

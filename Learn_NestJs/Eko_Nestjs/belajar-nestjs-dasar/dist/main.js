@@ -6,6 +6,7 @@ const cookieParser = require("cookie-parser");
 const mustache = require("mustache-express");
 const config_1 = require("@nestjs/config");
 const nest_winston_1 = require("nest-winston");
+const validation_filter_1 = require("./validation/validation.filter");
 async function bootstrap() {
     const app = await core_1.NestFactory.create(app_module_1.AppModule);
     app.use(cookieParser('MY SECRET KEY'));
@@ -14,6 +15,7 @@ async function bootstrap() {
     app.set('views', __dirname + '/../views');
     app.set('view engine', 'html');
     app.engine('html', mustache());
+    app.useGlobalFilters(new validation_filter_1.ValidationFilter());
     const configService = app.get(config_1.ConfigService);
     await app.listen(configService.get('PORT'));
 }

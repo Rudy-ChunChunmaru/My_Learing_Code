@@ -29,6 +29,11 @@ let UserController = class UserController {
         this.memberService = memberService;
     }
     async create(firstname, lastname) {
+        if (!firstname)
+            throw new common_1.HttpException({
+                code: 400,
+                error: 'first_name is required',
+            }, 400);
         return this.userRepository.save(firstname, lastname);
     }
     memberservice() {
