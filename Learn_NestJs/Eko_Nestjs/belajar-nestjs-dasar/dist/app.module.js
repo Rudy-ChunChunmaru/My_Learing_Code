@@ -17,11 +17,16 @@ const nest_winston_1 = require("nest-winston");
 const validation_module_1 = require("./validation/validation.module");
 const winston = require("winston");
 const log_middleware_1 = require("./log/log.middleware");
+const auth_middleware_1 = require("./auth/auth.middleware");
 let AppModule = class AppModule {
     configure(consumer) {
         consumer.apply(log_middleware_1.LogMiddleware).forRoutes({
             path: '/api/*',
             method: common_1.RequestMethod.ALL,
+        });
+        consumer.apply(auth_middleware_1.AuthMiddleware).forRoutes({
+            path: '/api/users/current',
+            method: common_1.RequestMethod.GET,
         });
     }
 };

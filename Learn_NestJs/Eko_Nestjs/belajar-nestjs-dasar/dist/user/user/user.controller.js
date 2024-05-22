@@ -22,6 +22,8 @@ const member_service_1 = require("../member/member.service");
 const validation_filter_1 = require("../../validation/validation.filter");
 const login_model_1 = require("../../model/login.model");
 const validation_pipe_1 = require("../../validation/validation.pipe");
+const time_interceptor_1 = require("../../time/time.interceptor");
+const auth_decorator_1 = require("../../auth/auth.decorator");
 let UserController = class UserController {
     constructor(service_constructor, connection, mailService, emailService, userRepository, memberService) {
         this.service_constructor = service_constructor;
@@ -31,8 +33,15 @@ let UserController = class UserController {
         this.userRepository = userRepository;
         this.memberService = memberService;
     }
+    current(user) {
+        return {
+            data: `Hello ${user.first_name} ${user.last_name}`,
+        };
+    }
     login(name, request) {
-        return `hello ${request.username}`;
+        return {
+            data: `hello ${request.username}`,
+        };
     }
     async create(firstname, lastname) {
         if (!firstname)
@@ -107,9 +116,18 @@ let UserController = class UserController {
 };
 exports.UserController = UserController;
 __decorate([
+    (0, common_1.Get)('/current'),
+    __param(0, (0, auth_decorator_1.Auth)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Object)
+], UserController.prototype, "current", null);
+__decorate([
     (0, common_1.UsePipes)(new validation_pipe_1.ValidationPipe(login_model_1.loginUserRequestValidation)),
     (0, common_1.UseFilters)(validation_filter_1.ValidationFilter),
     (0, common_1.Post)('/login'),
+    (0, common_1.Header)('Content-Type', 'application/json'),
+    (0, common_1.UseInterceptors)(time_interceptor_1.TimeInterceptor),
     __param(0, (0, common_1.Query)('name')),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),

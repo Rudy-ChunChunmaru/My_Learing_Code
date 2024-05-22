@@ -16,7 +16,10 @@ export declare class UserController {
     private userRepository;
     private memberService;
     constructor(service_constructor: UserService, connection: Connection, mailService: MailService, emailService: MailService, userRepository: UserRepository, memberService: MemberService);
-    login(name: string, request: LoginUserRequest): string;
+    current(user: User): Record<string, any>;
+    login(name: string, request: LoginUserRequest): {
+        data: string;
+    };
     create(firstname: string, lastname?: string): Promise<User>;
     memberservice(): void;
     sendEmail(): void;
