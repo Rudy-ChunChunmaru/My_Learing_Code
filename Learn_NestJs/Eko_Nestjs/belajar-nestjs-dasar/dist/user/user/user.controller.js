@@ -19,6 +19,9 @@ const connection_1 = require("../connection/connection");
 const mail_service_1 = require("../mail/mail.service");
 const user_repository_1 = require("../user-repository/user-repository");
 const member_service_1 = require("../member/member.service");
+const validation_filter_1 = require("../../validation/validation.filter");
+const login_model_1 = require("../../model/login.model");
+const validation_pipe_1 = require("../../validation/validation.pipe");
 let UserController = class UserController {
     constructor(service_constructor, connection, mailService, emailService, userRepository, memberService) {
         this.service_constructor = service_constructor;
@@ -27,6 +30,9 @@ let UserController = class UserController {
         this.emailService = emailService;
         this.userRepository = userRepository;
         this.memberService = memberService;
+    }
+    login(name, request) {
+        return `hello ${request.username}`;
     }
     async create(firstname, lastname) {
         if (!firstname)
@@ -100,6 +106,16 @@ let UserController = class UserController {
     }
 };
 exports.UserController = UserController;
+__decorate([
+    (0, common_1.UsePipes)(new validation_pipe_1.ValidationPipe(login_model_1.loginUserRequestValidation)),
+    (0, common_1.UseFilters)(validation_filter_1.ValidationFilter),
+    (0, common_1.Post)('/login'),
+    __param(0, (0, common_1.Query)('name')),
+    __param(1, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, login_model_1.LoginUserRequest]),
+    __metadata("design:returntype", void 0)
+], UserController.prototype, "login", null);
 __decorate([
     (0, common_1.Get)('/create'),
     __param(0, (0, common_1.Query)('firstname')),
@@ -198,7 +214,7 @@ __decorate([
 ], UserController.prototype, "sayhello", null);
 __decorate([
     (0, common_1.Get)('/:id'),
-    __param(0, (0, common_1.Param)('id')),
+    __param(0, (0, common_1.Param)('id', common_1.ParseIntPipe)),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Number]),
     __metadata("design:returntype", String)

@@ -7,6 +7,7 @@ import { MailService } from '../mail/mail.service';
 import { UserRepository } from '../user-repository/user-repository';
 import { MemberService } from '../member/member.service';
 import { User } from '@prisma/client';
+import { LoginUserRequest } from 'src/model/login.model';
 export declare class UserController {
     private service_constructor;
     private connection;
@@ -15,6 +16,7 @@ export declare class UserController {
     private userRepository;
     private memberService;
     constructor(service_constructor: UserService, connection: Connection, mailService: MailService, emailService: MailService, userRepository: UserRepository, memberService: MemberService);
+    login(name: string, request: LoginUserRequest): string;
     create(firstname: string, lastname?: string): Promise<User>;
     memberservice(): void;
     sendEmail(): void;

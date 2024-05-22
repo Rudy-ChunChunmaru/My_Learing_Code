@@ -14,6 +14,9 @@ import {
   Inject,
   UseFilters,
   HttpException,
+  ParseIntPipe,
+  Body,
+  UsePipes,
 } from '@nestjs/common';
 import {
   // expressjs
@@ -27,6 +30,12 @@ import { UserRepository } from '../user-repository/user-repository';
 import { MemberService } from '../member/member.service';
 import { User } from '@prisma/client';
 import { ValidationFilter } from 'src/validation/validation.filter';
+import { request } from 'http';
+import {
+  LoginUserRequest,
+  loginUserRequestValidation,
+} from 'src/model/login.model';
+import { ValidationPipe } from 'src/validation/validation.pipe';
 
 @Controller('/api/users')
 export class UserController {
@@ -39,6 +48,20 @@ export class UserController {
     private userRepository: UserRepository,
     private memberService: MemberService,
   ) {}
+
+  // ------------------------------------------------ login
+  @UsePipes(new ValidationPipe(loginUserRequestValidation))
+  @UseFilters(ValidationFilter)
+  @Post('/login')
+  login(
+    @Query('name') name: string,
+    @Body()
+    request: LoginUserRequest,
+  ) {
+    return `hello ${request.username}`;
+  }
+
+  // ------------------------------------------------
 
   // --------------------------------------------- create user
   @Get('/create')
@@ -187,7 +210,7 @@ export class UserController {
   }
 
   @Get('/:id')
-  getbyid(@Param('id') id: number): string {
+  getbyid(@Param('id', ParseIntPipe) id: number): string {
     return `GET ${id}`;
   }
   @Get('/req/:id')
