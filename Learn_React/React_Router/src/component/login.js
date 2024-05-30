@@ -1,0 +1,31 @@
+import { useState } from "react";
+import { useAuth } from "./auth";
+import { useNavigate, useLocation } from "react-router";
+
+const Login = () => {
+  const [user, setuser] = useState("");
+  const auth = useAuth();
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const redirectpath = location.state?.path || "/";
+
+  const heanderLogin = async () => {
+    await auth.login(user);
+    navigate(redirectpath, { replace: true });
+  };
+  return (
+    <div>
+      <h1>login</h1>
+      <br></br>
+      <div>
+        username :
+        <input type="text" onChange={(e) => setuser(e.target.value)} />
+      </div>
+      <br></br>
+      <button onClick={heanderLogin}>Login</button>
+    </div>
+  );
+};
+
+export default Login;
