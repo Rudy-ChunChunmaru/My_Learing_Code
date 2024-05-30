@@ -1,5 +1,6 @@
 import { NavLink } from "react-router-dom";
 import { useAuth } from "./auth";
+import RequierNavbar from "./RequierNavbar";
 
 function Navbar() {
   const navlinkstyle = ({ isActive }) => {
@@ -22,9 +23,11 @@ function Navbar() {
       <NavLink style={navlinkstyle} to="/products">
         products
       </NavLink>
-      <NavLink style={navlinkstyle} to="/profile">
-        Profile
-      </NavLink>
+      <RequierNavbar>
+        <NavLink style={navlinkstyle} to="/profile">
+          Profile
+        </NavLink>
+      </RequierNavbar>
       {!auth.user && (
         <NavLink style={navlinkstyle} to="/login">
           login
