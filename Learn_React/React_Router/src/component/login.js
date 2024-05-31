@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useAuth } from "./auth";
+import md5 from "md5";
 import { useNavigate, useLocation } from "react-router";
 
 const Login = () => {
@@ -25,7 +26,7 @@ const Login = () => {
       </div>
       <div>
         password :
-        <input type="text" onChange={(e) => setpass(e.target.value)} />
+        <input type="password" onChange={(e) => setpass(md5(e.target.value))} />
       </div>
       <br></br>
       <button onClick={heanderLogin}>Login</button>
