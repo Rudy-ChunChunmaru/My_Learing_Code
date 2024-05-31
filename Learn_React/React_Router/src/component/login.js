@@ -4,6 +4,7 @@ import { useNavigate, useLocation } from "react-router";
 
 const Login = () => {
   const [user, setuser] = useState("");
+  const [pass, setpass] = useState("");
   const auth = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
@@ -11,7 +12,7 @@ const Login = () => {
   const redirectpath = location.state?.path || "/";
 
   const heanderLogin = async () => {
-    await auth.login(user);
+    await auth.login(user, pass);
     navigate(redirectpath, { replace: true });
   };
   return (
@@ -21,6 +22,10 @@ const Login = () => {
       <div>
         username :
         <input type="text" onChange={(e) => setuser(e.target.value)} />
+      </div>
+      <div>
+        password :
+        <input type="text" onChange={(e) => setpass(e.target.value)} />
       </div>
       <br></br>
       <button onClick={heanderLogin}>Login</button>

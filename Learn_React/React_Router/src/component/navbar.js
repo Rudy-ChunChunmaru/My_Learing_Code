@@ -28,7 +28,7 @@ function Navbar() {
           Profile
         </NavLink>
       </RequierNavbar>
-      {!auth.user && (
+      {!auth.getUserId() && (
         <NavLink style={navlinkstyle} to="/login">
           login
         </NavLink>

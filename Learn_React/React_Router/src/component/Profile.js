@@ -12,7 +12,7 @@ const Profile = () => {
 
   return (
     <>
-      <div>wellcome {auth.user}</div>
+      <div>wellcome {auth.getUserId()}</div>
       <button onClick={heanderLogout}>logout</button>
     </>
   );
