@@ -6,7 +6,6 @@ import Navbar from "./component/navbar";
 
 import { AuthProvider } from "./component/auth";
 import { withCookies, Cookies } from "react-cookie";
-import { wait } from "@testing-library/user-event/dist/utils";
 
 class App extends Component {
   static propTypes = {
