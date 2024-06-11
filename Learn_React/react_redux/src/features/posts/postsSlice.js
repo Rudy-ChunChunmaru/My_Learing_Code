@@ -7,12 +7,26 @@ const initialState = [
     title: "Learing Redux kit",
     content: "hallo world",
     date: sub(new Date(), { minutes: 10 }).toISOString(),
+    reactions: {
+      thumbsUp: 0,
+      wow: 0,
+      heart: 0,
+      rocket: 0,
+      coffee: 0,
+    },
   },
   {
     id: "2",
     title: "Slicess ........",
     content: "hallo world2",
     date: sub(new Date(), { minutes: 5 }).toISOString(),
+    reactions: {
+      thumbsUp: 0,
+      wow: 0,
+      heart: 0,
+      rocket: 0,
+      coffee: 0,
+    },
   },
 ];
 
@@ -32,8 +46,20 @@ const postsSlice = createSlice({
             content,
             date: new Date().toISOString(),
             userId,
+            reactions: {
+              thumbsUp: 0,
+              wow: 0,
+              heart: 0,
+              rocket: 0,
+              coffee: 0,
+            },
           },
         };
+      },
+      reactionAdded(state, action) {
+        const { postId, reaction } = action.payload;
+        const existingPostUser = state.fine((post) => post.id === postId);
+        if (existingPostUser) existingPostUser.reactions[reaction]++;
       },
     },
   },
@@ -41,6 +67,6 @@ const postsSlice = createSlice({
 
 export const selectAllPosts = (state) => state.posts;
 
-export const { postAdded } = postsSlice.actions;
+export const { postAdded, reactionAdded } = postsSlice.actions;
 
 export default postsSlice.reducer;
