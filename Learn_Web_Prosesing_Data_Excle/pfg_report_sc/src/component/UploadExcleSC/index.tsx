@@ -12,8 +12,37 @@ const UploadExcleSC = ({ Windo, setWindo, setDataSC }: Props) => {
   const onClose = () => {
     setWindo(false);
   };
-  const onSubmit = (data: any, file: any) => {
-    console.info(data);
+  const onSubmit = async (data: any, file: any) => {
+    console.info(data.all);
+
+    const UniqueDes: string[] = await [
+      ...new Set<string>(
+        data.all.map((item: typeDataSC): string => item.DESTINATION)
+      ),
+    ];
+
+    const UniquePOPerDes = await UniqueDes.reduce((det, value) => {
+      return {
+        ...det,
+        [value]: [
+          ...new Set<string>(
+            data.all
+              .filter((item: typeDataSC) => item.DESTINATION == value)
+              .map((item: typeDataSC): string => {
+                return item.PO;
+              })
+          ),
+        ],
+      };
+    }, {});
+
+    const UniqueSizePerPOPerDes = Object.keys(UniquePOPerDes).forEach(function (
+      key
+    ) {
+      console.info(UniquePOPerDes[key]);
+    });
+
+    console.info(UniqueSizePerPOPerDes);
   };
 
   const fields = [

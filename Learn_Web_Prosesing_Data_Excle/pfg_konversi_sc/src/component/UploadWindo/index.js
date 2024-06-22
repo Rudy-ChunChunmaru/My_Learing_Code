@@ -2,7 +2,7 @@ import { useState } from "react";
 import { ReactSpreadsheetImport } from "react-spreadsheet-import";
 
 const UploadWindo = () => {
-  const [Windo, setWindo] = useState(true);
+  const [Windo, setWindo] = useState(false);
   const onClose = () => {
     setWindo(false);
   };
