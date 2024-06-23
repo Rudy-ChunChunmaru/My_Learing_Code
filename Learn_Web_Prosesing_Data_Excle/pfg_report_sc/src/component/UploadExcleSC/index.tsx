@@ -1,10 +1,15 @@
 import { ReactSpreadsheetImport } from "react-spreadsheet-import";
 import { typeDataSC } from "../../AppType";
+import { typeUniquePerDes, typeUniquePerPoDes } from "./typeindex";
 
 type Props = {
   Windo?: Boolean;
-  setWindo: React.Dispatch<React.SetStateAction<boolean | undefined>>;
-  setDataSC: React.Dispatch<React.SetStateAction<typeDataSC[]>>;
+  setWindo: (value: boolean | undefined) => void;
+  setDataSC: (value: {
+    DataUploadSC: any;
+    DataProsesingPerDes: typeUniquePerDes[];
+    DataProsesingPerPoDes: typeUniquePerPoDes[];
+  }) => void;
 };
 
 const UploadExcleSC = ({ Windo, setWindo, setDataSC }: Props) => {
@@ -13,36 +18,62 @@ const UploadExcleSC = ({ Windo, setWindo, setDataSC }: Props) => {
     setWindo(false);
   };
   const onSubmit = async (data: any, file: any) => {
-    console.info(data.all);
+    // console.info(data.all);
 
-    const UniqueDes: string[] = await [
-      ...new Set<string>(
-        data.all.map((item: typeDataSC): string => item.DESTINATION)
-      ),
-    ];
+    if (data.all.length) {
+      const UniquePerDes = await [
+        ...new Set<string>(
+          data.all.map((item: typeDataSC): string => item.DESTINATION)
+        ),
+      ].reduce((det, value) => {
+        return [
+          ...det,
+          {
+            destination: value,
+            po: [
+              ...new Set<string>(
+                data.all
+                  .filter((item: typeDataSC) => item.DESTINATION == value)
+                  .map((item: typeDataSC) => item.PO)
+              ),
+            ],
+          },
+        ];
+      }, [] as typeUniquePerDes[]);
 
-    const UniquePOPerDes = await UniqueDes.reduce((det, value) => {
-      return {
-        ...det,
-        [value]: [
-          ...new Set<string>(
-            data.all
-              .filter((item: typeDataSC) => item.DESTINATION == value)
-              .map((item: typeDataSC): string => {
-                return item.PO;
-              })
-          ),
-        ],
-      };
-    }, {});
+      const UniquePerPoDes = await UniquePerDes.reduce((det, val) => {
+        const getUniqueSizePerPoDes = val.po.reduce(
+          (detPo, valPo) => [
+            ...detPo,
+            {
+              destination: val.destination,
+              po: valPo,
+              size: [
+                ...new Set<string>(
+                  data.all
+                    .filter(
+                      (item: typeDataSC) =>
+                        item.DESTINATION == val.destination && item.PO == valPo
+                    )
+                    .map((item: typeDataSC) => item.SIZE)
+                ),
+              ],
+            },
+          ],
+          [] as typeUniquePerPoDes[]
+        );
 
-    const UniqueSizePerPOPerDes = Object.keys(UniquePOPerDes).forEach(function (
-      key
-    ) {
-      console.info(UniquePOPerDes[key]);
-    });
+        return [...det, ...getUniqueSizePerPoDes];
+      }, [] as typeUniquePerPoDes[]);
 
-    console.info(UniqueSizePerPOPerDes);
+      await setDataSC({
+        DataUploadSC: data.all,
+        DataProsesingPerDes: UniquePerDes,
+        DataProsesingPerPoDes: UniquePerPoDes,
+      });
+
+      // console.info(UniquePerPoDes);
+    } else throw console.error("data kosong !!!");
   };
 
   const fields = [
