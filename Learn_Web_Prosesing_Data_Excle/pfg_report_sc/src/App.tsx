@@ -10,13 +10,17 @@ import {
 
 function App() {
   const [Windo, setWindo] = useState<boolean>();
-  const [DataSC, setDataSC] = useState(
-    {} as {
-      DataUploadSC: any;
-      DataProsesingPerDes: typeUniquePerDes[];
-      DataProsesingPerPoDes: typeUniquePerPoDes[];
-    }
-  );
+  const [DataSC, setDataSC] = useState({
+    DataUploadSC: undefined,
+    DataProsesingPerDes: [],
+    DataProsesingPerPoDes: [],
+    DataCountSize: 0,
+  } as {
+    DataUploadSC: any;
+    DataProsesingPerDes: typeUniquePerDes[];
+    DataProsesingPerPoDes: typeUniquePerPoDes[];
+    DataCountSize: number;
+  });
 
   return (
     <>
@@ -24,8 +28,7 @@ function App() {
 
       <div className="App block h-full w-full px-3 pt-1">
         <Navbar setWindo={setWindo} setDataSC={setDataSC} />
-
-        <ResultDocmentSC />
+        <ResultDocmentSC DataSC={DataSC} />
       </div>
     </>
   );

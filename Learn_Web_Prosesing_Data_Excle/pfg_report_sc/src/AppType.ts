@@ -3,9 +3,10 @@ export type typeDataSC = {
   PO_ALLOCATION: string;
   DESTINATION: string;
   STYLE: string;
+  DESCRIPTION?: string;
   COLOR_CODE: string;
   SIZE: string;
   UNIT: string;
   PRICE: number;
-  SURCHARGE: number;
+  SURCHARGE?: number;
 };

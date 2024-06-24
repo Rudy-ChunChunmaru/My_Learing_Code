@@ -9,6 +9,7 @@ type Props = {
     DataUploadSC: any;
     DataProsesingPerDes: typeUniquePerDes[];
     DataProsesingPerPoDes: typeUniquePerPoDes[];
+    DataCountSize: number;
   }) => void;
 };
 
@@ -21,11 +22,27 @@ const UploadExcleSC = ({ Windo, setWindo, setDataSC }: Props) => {
     // console.info(data.all);
 
     if (data.all.length) {
+      let countSizeOnDes: number = 0;
       const UniquePerDes = await [
         ...new Set<string>(
           data.all.map((item: typeDataSC): string => item.DESTINATION)
         ),
       ].reduce((det, value) => {
+        const getDataFilerSize = () => {
+          const datafiltersize = [
+            ...new Set<string>(
+              data.all
+                .filter((item: typeDataSC) => item.DESTINATION == value)
+                .map((item: typeDataSC) => item.SIZE)
+            ),
+          ];
+
+          if (countSizeOnDes < datafiltersize.length)
+            countSizeOnDes = datafiltersize.length;
+
+          return datafiltersize;
+        };
+
         return [
           ...det,
           {
@@ -37,31 +54,40 @@ const UploadExcleSC = ({ Windo, setWindo, setDataSC }: Props) => {
                   .map((item: typeDataSC) => item.PO)
               ),
             ],
+            size: getDataFilerSize(),
           },
         ];
       }, [] as typeUniquePerDes[]);
 
+      let countSizeOnPoDes: number = 0;
       const UniquePerPoDes = await UniquePerDes.reduce((det, val) => {
-        const getUniqueSizePerPoDes = val.po.reduce(
-          (detPo, valPo) => [
+        const getUniqueSizePerPoDes = val.po.reduce((detPo, valPo) => {
+          const getDataFilerSize = () => {
+            const datafiltersize = [
+              ...new Set<string>(
+                data.all
+                  .filter(
+                    (item: typeDataSC) =>
+                      item.DESTINATION == val.destination && item.PO == valPo
+                  )
+                  .map((item: typeDataSC) => item.SIZE)
+              ),
+            ];
+
+            if (countSizeOnPoDes < datafiltersize.length)
+              countSizeOnPoDes = datafiltersize.length;
+
+            return datafiltersize;
+          };
+          return [
             ...detPo,
             {
               destination: val.destination,
               po: valPo,
-              size: [
-                ...new Set<string>(
-                  data.all
-                    .filter(
-                      (item: typeDataSC) =>
-                        item.DESTINATION == val.destination && item.PO == valPo
-                    )
-                    .map((item: typeDataSC) => item.SIZE)
-                ),
-              ],
+              size: getDataFilerSize(),
             },
-          ],
-          [] as typeUniquePerPoDes[]
-        );
+          ];
+        }, [] as typeUniquePerPoDes[]);
 
         return [...det, ...getUniqueSizePerPoDes];
       }, [] as typeUniquePerPoDes[]);
@@ -70,9 +96,8 @@ const UploadExcleSC = ({ Windo, setWindo, setDataSC }: Props) => {
         DataUploadSC: data.all,
         DataProsesingPerDes: UniquePerDes,
         DataProsesingPerPoDes: UniquePerPoDes,
+        DataCountSize: countSizeOnDes,
       });
-
-      // console.info(UniquePerPoDes);
     } else throw console.error("data kosong !!!");
   };
 
@@ -165,6 +190,16 @@ const UploadExcleSC = ({ Windo, setWindo, setDataSC }: Props) => {
           level: "error",
         },
       ],
+    },
+    {
+      label: "DESCRIPTION",
+      key: "DESCRIPTION",
+      alternateMatches: ["description"],
+      fieldType: {
+        type: "input",
+      },
+      example: "description style",
+      validations: [],
     },
     {
       label: "COLOR_CODE",
