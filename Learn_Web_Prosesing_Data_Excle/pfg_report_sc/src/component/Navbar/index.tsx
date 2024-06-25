@@ -1,4 +1,5 @@
 import {
+  typeDataSC,
   typeUniquePerDes,
   typeUniquePerPoDes,
 } from "../UploadExcleSC/typeindex";
@@ -6,9 +7,10 @@ import {
 type Props = {
   setWindo: (value: boolean | undefined) => void;
   setDataSC: (value: {
-    DataUploadSC: any;
+    DataUploadSC: typeDataSC[] | undefined;
     DataProsesingPerDes: typeUniquePerDes[];
     DataProsesingPerPoDes: typeUniquePerPoDes[];
+    DataCountSize: number;
   }) => void;
 };
 
@@ -32,6 +34,7 @@ const Navbar = ({ setWindo, setDataSC }: Props) => {
               DataUploadSC: undefined,
               DataProsesingPerDes: [],
               DataProsesingPerPoDes: [],
+              DataCountSize: 0,
             });
           }}
         >

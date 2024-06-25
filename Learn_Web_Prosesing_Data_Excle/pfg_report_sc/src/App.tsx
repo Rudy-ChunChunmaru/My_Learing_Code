@@ -4,6 +4,7 @@ import UploadExcleSC from "./component/UploadExcleSC";
 import ResultDocmentSC from "./component/ResultDocmentSC";
 
 import {
+  typeDataSC,
   typeUniquePerDes,
   typeUniquePerPoDes,
 } from "./component/UploadExcleSC/typeindex";
@@ -16,7 +17,7 @@ function App() {
     DataProsesingPerPoDes: [],
     DataCountSize: 0,
   } as {
-    DataUploadSC: any;
+    DataUploadSC: typeDataSC[] | undefined;
     DataProsesingPerDes: typeUniquePerDes[];
     DataProsesingPerPoDes: typeUniquePerPoDes[];
     DataCountSize: number;
