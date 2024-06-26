@@ -3,7 +3,8 @@ export const cssBaseTabel = {
 };
 
 export const cssborderHead = {
-  padding: "1px",
+  paddingLeft: "1px",
+  paddingRight: "1px",
   border: "0.15em solid black",
 };
 
@@ -22,5 +23,10 @@ export const cssfonthead = {
 export const cssfontbody = {
   // fontSize: "14px",
   fontSize: "1.0em",
+  fontFamily: "Cambria",
+};
+
+export const csstextnumber = {
+  textAlign: "right",
   fontFamily: "Cambria",
 };

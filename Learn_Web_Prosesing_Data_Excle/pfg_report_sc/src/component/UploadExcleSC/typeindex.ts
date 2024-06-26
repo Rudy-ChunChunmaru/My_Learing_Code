@@ -18,7 +18,9 @@ export type typeDataSC = {
   STYLE: string;
   DESCRIPTION?: string;
   COLOR_CODE: string;
+  COLOR_NAME: string;
   SIZE: string;
+  QTY: number;
   UNIT: string;
   PRICE: number;
   SURCHARGE?: number;

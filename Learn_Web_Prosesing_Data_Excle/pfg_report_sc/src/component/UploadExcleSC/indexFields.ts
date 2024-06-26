@@ -115,6 +115,15 @@ export const fields = [
     ],
   },
   {
+    label: "COLOR_NAME",
+    key: "COLOR_NAME",
+    alternateMatches: ["color_name"],
+    fieldType: {
+      type: "input",
+    },
+    example: "color name",
+  },
+  {
     label: "SIZE",
     key: "SIZE",
     alternateMatches: ["size"],

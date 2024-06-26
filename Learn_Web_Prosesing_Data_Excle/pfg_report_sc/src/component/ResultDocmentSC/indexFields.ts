@@ -1,7 +1,7 @@
 import { typeCurrency } from "./indexType";
 
 export const currency: typeCurrency[] = [
-  { name: "Dolar", logo: "$" },
+  { name: "USD", logo: "$" },
   { name: "IDR", logo: "Rp." },
-  { name: "Yen", logo: "¥" },
+  { name: "YEN", logo: "¥" },
 ];

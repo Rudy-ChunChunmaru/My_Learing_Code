@@ -19,7 +19,7 @@ const UploadExcleSC = ({ Windo, setWindo, setDataSC }: Props) => {
     setWindo(false);
   };
   const onSubmit = async (data: any, file: any) => {
-    // console.info(data.all);
+    console.info(data.all);
     if (data.all.length) {
       const dataAll: typeDataSC[] = data.all;
       let countSizeOnDes: number = 0;
