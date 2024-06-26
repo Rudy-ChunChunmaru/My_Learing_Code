@@ -25,34 +25,59 @@ const ViewTableDetail = ({
   dataPoDes,
   fullColSpan,
 }: Props) => {
-  console.info(dataPoDes);
+  //   console.info(dataPoDes);
   //------------------------------------------------------------------------------------FUNC PROSES DATA
   const fullColSpanDes = 11 + dataDes.size.length;
 
-  const dataDetail = (datapo) => {
-    datapo.po_allocation.map((value) => {
-      const datafiler = dataAll?.filter(
-        (item) =>
-          item.DESTINATION == dataDes.destination &&
-          item.PO == numberPo &&
-          item.PO_ALLOCATION == value
-      );
-      return (
-        <tr>
-          <td style={{ ...cssborder, ...cssfontbody }}>{"-"}</td>
-        </tr>
-      );
-    });
+  type typeDataSCView = {
+    style: string;
+    description: string;
+    color_code: string;
+    color_name: string;
+    size_qty: { size: string; qty: number }[];
+    qty_total: number;
+    unit: string;
+    base_price: number;
+    upcharge: string;
+    price: number;
+    amount: number;
+  };
+
+  const dataDetail = (numberPo: string) => {
+    const dataSCView = dataPoDes
+      .filter((val: typeUniquePerPoDes) => val.po == numberPo)[0]
+      .po_allocation.map((value) => {
+        const datafiler = dataAll?.filter(
+          (item) =>
+            item.DESTINATION == dataDes.destination &&
+            item.PO == numberPo &&
+            item.PO_ALLOCATION == value
+        );
+
+        const dataSCViewProses = datafiler?.reduce(
+          (det: typeDataSCView[], valdatafilter: typeDataSC) => {
+            const detfilterdata = det.filter((detcek) => {
+              detcek.style == valdatafilter.STYLE &&
+                detcek.color_code == valdatafilter.COLOR_CODE;
+            });
+
+            if (detfilterdata == undefined) {
+              return [...det];
+            } else {
+              return [...det];
+            }
+          },
+          [] as typeDataSCView[]
+        );
+
+        return { PO_ALLOCATION: value, dataSCViewProses: dataSCViewProses };
+      });
+    console.info(dataSCView);
   };
 
   //------------------------------------------------------------------------------------ViewData
-  const ViewData = ({
-    numberPo,
-    datapo,
-  }: {
-    numberPo: string;
-    datapo: typeUniquePerPoDes;
-  }) => {
+  const ViewData = ({ numberPo }: { numberPo: string }) => {
+    dataDetail((numberPo = numberPo));
     return (
       <table
         style={{
@@ -156,14 +181,7 @@ const ViewTableDetail = ({
           colSpan={fullColSpanDes}
         >
           {dataDes.po.map((value) => (
-            <ViewData
-              numberPo={value}
-              datapo={
-                dataPoDes.filter(
-                  (val: typeUniquePerPoDes) => val.po == value
-                )[0]
-              }
-            />
+            <ViewData numberPo={value} />
           ))}
         </td>
       </tr>
