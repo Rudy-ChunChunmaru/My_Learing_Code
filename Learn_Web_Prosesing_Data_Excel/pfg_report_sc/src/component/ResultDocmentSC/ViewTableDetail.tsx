@@ -4,7 +4,6 @@ import {
   cssfontbody,
   cssborderHead,
   cssborder,
-  csstextnumber,
 } from "./indexCss";
 
 import {
@@ -17,15 +16,9 @@ type Props = {
   dataAll?: typeDataSC[];
   dataDes: typeUniquePerDes;
   dataPoDes: typeUniquePerPoDes[];
-  fullColSpan: number;
 };
 
-const ViewTableDetail = ({
-  dataAll,
-  dataDes,
-  dataPoDes,
-  fullColSpan,
-}: Props) => {
+const ViewTableDetail = ({ dataAll, dataDes, dataPoDes }: Props) => {
   //   console.info(dataPoDes);
   //------------------------------------------------------------------------------------FUNC PROSES DATA
   const fullColSpanDes = 11 + dataDes.size.length;
@@ -133,12 +126,15 @@ const ViewTableDetail = ({
 
         return { PO_ALLOCATION: value, dataSCViewProses: dataSCViewProses };
       });
-    console.info(dataSCView);
+    // console.info(dataSCView);
     return dataSCView;
   };
 
   //------------------------------------------------------------------------------------ViewData
   const ViewData = ({ datapo }: { datapo: string[] }) => {
+    const totalQty: { unit: string; qty: number }[] = [];
+    let totalAmountPrice: number;
+
     return (
       <table
         style={{
@@ -178,6 +174,20 @@ const ViewTableDetail = ({
                   </td>
                 );
                 return item.dataSCViewProses?.map((itemview, indexitemview) => {
+                  // add qty total per unit
+                  const unitIndex = totalQty.findIndex(
+                    (itemunit) => itemunit.unit == itemview.unit
+                  );
+                  if (unitIndex == -1)
+                    totalQty.push({
+                      unit: itemview.unit,
+                      qty: itemview.qty_total,
+                    });
+                  else totalQty[unitIndex].qty += Number(itemview.qty_total);
+
+                  // // add price total
+                  totalAmountPrice += Number(itemview.amount);
+
                   const trrow = (
                     <tr>
                       {indexitemview == 0 && poallocationhead}
@@ -278,6 +288,12 @@ const ViewTableDetail = ({
             </tbody>
           );
         })}
+        <tr>
+          <td style={{ textAlign: "right" }} colSpan={5 + dataDes.size.length}>
+            TOTAL:
+          </td>
+          <td colSpan={2}></td>
+        </tr>
 
         <tr>
           <td style={{ padding: "0", width: "8em" }}></td>

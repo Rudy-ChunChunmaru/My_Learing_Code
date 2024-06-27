@@ -25,8 +25,3 @@ export const cssfontbody = {
   fontSize: "1.0em",
   fontFamily: "Cambria",
 };
-
-export const csstextnumber = {
-  textAlign: "right",
-  fontFamily: "Cambria",
-};

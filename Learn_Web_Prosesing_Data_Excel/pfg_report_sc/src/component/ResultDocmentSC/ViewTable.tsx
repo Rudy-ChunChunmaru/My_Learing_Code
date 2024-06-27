@@ -62,7 +62,6 @@ const ViewTable = ({ tableRef, DataSC }: Props) => {
                   (item: typeUniquePerPoDes) =>
                     value.destination == item.destination
                 )}
-                fullColSpan={fullColSpan}
               />
             </td>
           </tr>

@@ -29,8 +29,13 @@ const ResultDocmentSC = ({ DataSC }: Props) => {
 
   return (
     <div className="mt-3 h-full w-fit flex-row rounded-lg bg-slate-400 px-5 py-1">
-      <div className="my-5 rounded-lg bg-slate-600 px-3 py-1">
+      <div className="my-5 flex justify-between rounded-lg bg-slate-600 px-3 py-1">
         <div className="my-2">
+          <button className="w-fit rounded-xl border-2  px-3 py-1 text-white hover:bg-slate-200 hover:text-black">
+            SETTING
+          </button>
+        </div>
+        <div className="my-2 flex gap-3">
           <ReactToPrint
             trigger={() => {
               return (
