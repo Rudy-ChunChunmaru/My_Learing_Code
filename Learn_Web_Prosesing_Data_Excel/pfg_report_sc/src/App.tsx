@@ -15,12 +15,10 @@ function App() {
     DataUploadSC: undefined,
     DataProsesingPerDes: [],
     DataProsesingPerPoDes: [],
-    DataCountSize: 0,
   } as {
     DataUploadSC: typeDataSC[] | undefined;
     DataProsesingPerDes: typeUniquePerDes[];
     DataProsesingPerPoDes: typeUniquePerPoDes[];
-    DataCountSize: number;
   });
 
   return (

@@ -3,26 +3,25 @@ import { typeDataSC, typeUniquePerDes, typeUniquePerPoDes } from "./typeindex";
 import { fields } from "./indexFields";
 
 type Props = {
-  Windo?: Boolean;
+  Windo?: boolean;
   setWindo: (value: boolean | undefined) => void;
   setDataSC: (value: {
     DataUploadSC: typeDataSC[] | undefined;
     DataProsesingPerDes: typeUniquePerDes[];
     DataProsesingPerPoDes: typeUniquePerPoDes[];
-    DataCountSize: number;
   }) => void;
 };
 
 const UploadExcleSC = ({ Windo, setWindo, setDataSC }: Props) => {
   //   const Windo = true;
   const onClose = () => {
-    setWindo(false);
+    setWindo(undefined);
   };
-  const onSubmit = async (data: any, file: any) => {
+  const onSubmit = async (data: any) => {
     console.info(data.all);
     if (data.all.length) {
       const dataAll: typeDataSC[] = data.all;
-      let countSizeOnDes: number = 0;
+
       const UniquePerDes = await [
         ...new Set<string>(
           dataAll.map((item: typeDataSC): string => item.DESTINATION)
@@ -36,9 +35,6 @@ const UploadExcleSC = ({ Windo, setWindo, setDataSC }: Props) => {
                 .map((item: typeDataSC) => item.SIZE)
             ),
           ];
-
-          if (countSizeOnDes < datafiltersize.length)
-            countSizeOnDes = datafiltersize.length;
 
           return datafiltersize;
         };
@@ -59,7 +55,6 @@ const UploadExcleSC = ({ Windo, setWindo, setDataSC }: Props) => {
         ];
       }, [] as typeUniquePerDes[]);
 
-      let countSizeOnPoDes: number = 0;
       const UniquePerPoDes = await UniquePerDes.reduce((det, val) => {
         const getUniqueSizePerPoDes = val.po.reduce((detPo, valPo) => {
           const getDataFilerSize = () => {
@@ -73,9 +68,6 @@ const UploadExcleSC = ({ Windo, setWindo, setDataSC }: Props) => {
                   .map((item: typeDataSC) => item.SIZE)
               ),
             ];
-
-            if (countSizeOnPoDes < datafiltersize.length)
-              countSizeOnPoDes = datafiltersize.length;
 
             return datafiltersize;
           };
@@ -109,7 +101,6 @@ const UploadExcleSC = ({ Windo, setWindo, setDataSC }: Props) => {
         DataUploadSC: dataAll,
         DataProsesingPerDes: UniquePerDes,
         DataProsesingPerPoDes: UniquePerPoDes,
-        DataCountSize: countSizeOnDes,
       });
     } else throw console.error("data kosong !!!");
   };
@@ -117,7 +108,7 @@ const UploadExcleSC = ({ Windo, setWindo, setDataSC }: Props) => {
   return (
     <div className="App">
       <ReactSpreadsheetImport
-        isOpen={Windo == undefined ? false : Windo}
+        isOpen={Windo}
         onClose={onClose}
         onSubmit={onSubmit}
         fields={fields}

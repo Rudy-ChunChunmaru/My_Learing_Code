@@ -133,7 +133,7 @@ const ViewTableDetail = ({ dataAll, dataDes, dataPoDes }: Props) => {
   //------------------------------------------------------------------------------------ViewData
   const ViewData = ({ datapo }: { datapo: string[] }) => {
     const totalQty: { unit: string; qty: number }[] = [];
-    let totalAmountPrice: number;
+    const totalAmount: { price: number } = { price: 0 };
 
     return (
       <table
@@ -183,10 +183,14 @@ const ViewTableDetail = ({ dataAll, dataDes, dataPoDes }: Props) => {
                       unit: itemview.unit,
                       qty: itemview.qty_total,
                     });
-                  else totalQty[unitIndex].qty += Number(itemview.qty_total);
+                  else
+                    totalQty[unitIndex].qty =
+                      Number(totalQty[unitIndex].qty) +
+                      Number(itemview.qty_total);
 
                   // // add price total
-                  totalAmountPrice += Number(itemview.amount);
+                  totalAmount.price =
+                    Number(totalAmount.price) + Number(itemview.amount);
 
                   const trrow = (
                     <tr>
@@ -289,10 +293,26 @@ const ViewTableDetail = ({ dataAll, dataDes, dataPoDes }: Props) => {
           );
         })}
         <tr>
-          <td style={{ textAlign: "right" }} colSpan={5 + dataDes.size.length}>
+          <td
+            style={{ ...cssborder, ...cssfontbody, textAlign: "right" }}
+            colSpan={5 + dataDes.size.length}
+          >
             TOTAL:
           </td>
-          <td colSpan={2}></td>
+          <td
+            style={{ ...cssborder, ...cssfontbody, textAlign: "right" }}
+            colSpan={2}
+          >
+            {totalQty.map((itemunit) => (
+              <span>{itemunit.qty + " " + itemunit.unit}</span>
+            ))}
+          </td>
+          <td
+            style={{ ...cssborder, ...cssfontbody, textAlign: "right" }}
+            colSpan={4}
+          >
+            {totalAmount.price}
+          </td>
         </tr>
 
         <tr>

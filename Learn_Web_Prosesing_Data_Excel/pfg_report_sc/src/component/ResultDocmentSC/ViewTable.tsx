@@ -12,7 +12,6 @@ type Props = {
     DataUploadSC: typeDataSC[] | undefined;
     DataProsesingPerDes: typeUniquePerDes[];
     DataProsesingPerPoDes: typeUniquePerPoDes[];
-    DataCountSize: number;
   };
 };
 
@@ -21,7 +20,6 @@ const ViewTable = ({ tableRef, DataSC }: Props) => {
   //   DataSC.DataUploadSC == undefined ? 0 : DataSC.DataUploadSC.length
   // );
   //------------------------------------------------------------------------------------Value style table
-  const fullColSpan = 10 + DataSC.DataCountSize;
 
   return (
     <table className="w-full" ref={tableRef} style={cssBaseTabel}>
@@ -32,14 +30,13 @@ const ViewTable = ({ tableRef, DataSC }: Props) => {
             fontFamily: "Cambria",
             textAlign: "center",
           }}
-          colSpan={fullColSpan}
         >
           <strong>SALES CONFRMATION</strong>
         </td>
       </tr>
 
       <tr>
-        <td colSpan={fullColSpan}>
+        <td>
           <br></br>
           <br></br>
         </td>
@@ -52,7 +49,7 @@ const ViewTable = ({ tableRef, DataSC }: Props) => {
       ) : (
         DataSC.DataProsesingPerDes.map((value) => (
           <tr>
-            <td colSpan={fullColSpan} className="p-0">
+            <td className="p-0">
               <ViewTableDetail
                 dataAll={DataSC.DataUploadSC?.filter(
                   (item: typeDataSC) => value.destination == item.DESTINATION
