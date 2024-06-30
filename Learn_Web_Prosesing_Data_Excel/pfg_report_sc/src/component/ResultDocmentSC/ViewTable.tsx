@@ -3,7 +3,7 @@ import {
   typeDataSC,
   typeUniquePerDes,
   typeUniquePerPoDes,
-} from "../UploadExcleSC/typeindex";
+} from "../UploadExcelSC/typeindex";
 import ViewTableDetail from "./ViewTableDetail";
 
 type Props = {

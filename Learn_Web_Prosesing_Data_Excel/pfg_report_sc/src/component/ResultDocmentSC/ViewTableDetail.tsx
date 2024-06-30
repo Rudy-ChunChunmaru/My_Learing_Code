@@ -10,7 +10,7 @@ import {
   typeDataSC,
   typeUniquePerDes,
   typeUniquePerPoDes,
-} from "../UploadExcleSC/typeindex";
+} from "../UploadExcelSC/typeindex";
 
 type Props = {
   dataAll?: typeDataSC[];
@@ -365,25 +365,25 @@ const ViewTableDetail = ({ dataAll, dataDes, dataPoDes }: Props) => {
       <th style={{ ...cssborderHead, ...cssfonthead }} rowSpan={2}>
         UNIT
       </th>
-      <th style={{ ...cssborderHead, ...cssfonthead }} rowSpan={2}>
-        BASE PRICE
-      </th>
-      <th style={{ ...cssborderHead, ...cssfonthead }} rowSpan={2}>
-        UPCHARGE
-      </th>
-      <th style={{ ...cssborderHead, ...cssfonthead }} rowSpan={2}>
+      <th style={{ ...cssborderHead, ...cssfonthead }} colSpan={4} rowSpan={1}>
         PRICE
-      </th>
-      <th style={{ ...cssborderHead, ...cssfonthead }} rowSpan={2}>
-        AMOUNT
       </th>
     </tr>
   );
 
+  const HeadPrice: string[] = ["BASE", "UPCHARGE", "FINAL", "AMOUNT"];
+
   const TableHeadSize = (
     <tr>
       {dataDes.size.map((value) => (
-        <th style={{ ...cssborderHead, ...cssfonthead }}>{value}</th>
+        <th style={{ ...cssborderHead, ...cssfonthead }} rowSpan={1}>
+          {value}
+        </th>
+      ))}
+      {HeadPrice.map((value) => (
+        <th style={{ ...cssborderHead, ...cssfonthead }} rowSpan={1}>
+          {value}
+        </th>
       ))}
     </tr>
   );

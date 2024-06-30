@@ -18,7 +18,7 @@ const ViewSetting = ({}: // setWindoSeting,
 Props) => {
   return (
     <div className="rounded-lg bg-slate-600 px-3 py-1">
-      <div className="">not yet ready</div>
+      <div className=""></div>
     </div>
   );
 };

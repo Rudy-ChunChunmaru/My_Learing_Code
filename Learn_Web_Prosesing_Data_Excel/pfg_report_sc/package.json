@@ -15,6 +15,7 @@
     "react-dom": "^18.2.0",
     "react-easy-sort": "^1.6.0",
     "react-export-table-to-excel": "^1.0.6",
+    "react-spreadsheet": "^0.9.4",
     "react-spreadsheet-import": "^4.6.1",
     "react-to-print": "^2.15.1"
   },

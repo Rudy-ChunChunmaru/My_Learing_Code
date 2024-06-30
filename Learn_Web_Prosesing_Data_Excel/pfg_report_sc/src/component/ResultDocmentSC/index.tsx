@@ -6,7 +6,7 @@ import {
   typeDataSC,
   typeUniquePerDes,
   typeUniquePerPoDes,
-} from "../UploadExcleSC/typeindex";
+} from "../UploadExcelSC/typeindex";
 import ViewTable from "./ViewTable";
 import { typeCurrency, typeSize } from "./indexType";
 import ViewSetting from "./ViewSetting";
@@ -14,6 +14,7 @@ import ViewSetting from "./ViewSetting";
 type Props = {
   DataSC: {
     DataUploadSC: typeDataSC[] | undefined;
+    DataProsesingUniqueSize: string[];
     DataProsesingPerDes: typeUniquePerDes[];
     DataProsesingPerPoDes: typeUniquePerPoDes[];
   };

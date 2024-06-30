@@ -7,6 +7,7 @@ type Props = {
   setWindo: (value: boolean | undefined) => void;
   setDataSC: (value: {
     DataUploadSC: typeDataSC[] | undefined;
+    DataProsesingUniqueSize: string[];
     DataProsesingPerDes: typeUniquePerDes[];
     DataProsesingPerPoDes: typeUniquePerPoDes[];
   }) => void;
@@ -21,6 +22,12 @@ const UploadExcleSC = ({ Windo, setWindo, setDataSC }: Props) => {
     console.info(data.all);
     if (data.all.length) {
       const dataAll: typeDataSC[] = data.all;
+
+      const dataSizeAll: string[] = [
+        ...new Set<string>(dataAll.map((item) => item.SIZE)),
+      ]
+        .sort()
+        .reverse();
 
       const UniquePerDes = await [
         ...new Set<string>(
@@ -99,9 +106,12 @@ const UploadExcleSC = ({ Windo, setWindo, setDataSC }: Props) => {
 
       await setDataSC({
         DataUploadSC: dataAll,
+        DataProsesingUniqueSize: dataSizeAll,
         DataProsesingPerDes: UniquePerDes,
         DataProsesingPerPoDes: UniquePerPoDes,
       });
+
+      console.info(dataSizeAll);
     } else throw console.error("data kosong !!!");
   };
 

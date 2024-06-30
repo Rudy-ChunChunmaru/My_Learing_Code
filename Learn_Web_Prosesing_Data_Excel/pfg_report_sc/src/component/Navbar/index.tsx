@@ -2,19 +2,21 @@ import {
   typeDataSC,
   typeUniquePerDes,
   typeUniquePerPoDes,
-} from "../UploadExcleSC/typeindex";
+} from "../UploadExcelSC/typeindex";
 
 type Props = {
   setWindo: (value: boolean | undefined) => void;
+  setShowTampte: (value: boolean) => void;
+  showTampte: boolean;
   setDataSC: (value: {
     DataUploadSC: typeDataSC[] | undefined;
+    DataProsesingUniqueSize: string[];
     DataProsesingPerDes: typeUniquePerDes[];
     DataProsesingPerPoDes: typeUniquePerPoDes[];
-    DataCountSize: number;
   }) => void;
 };
 
-const Navbar = ({ setWindo, setDataSC }: Props) => {
+const Navbar = ({ setWindo, setDataSC, setShowTampte, showTampte }: Props) => {
   return (
     <div className="flex justify-start gap-5 rounded-lg bg-slate-500 px-5 py-2 text-white">
       <div className="my-auto ">REPOT SALES CONFRMATION</div>
@@ -32,13 +34,20 @@ const Navbar = ({ setWindo, setDataSC }: Props) => {
           onClick={() => {
             setDataSC({
               DataUploadSC: undefined,
+              DataProsesingUniqueSize: [],
               DataProsesingPerDes: [],
               DataProsesingPerPoDes: [],
-              DataCountSize: 0,
             });
           }}
         >
           Clear Data
+        </button>
+
+        <button
+          className="rounded-lg border-2 border-orange-50 px-3 py-2 hover:bg-slate-400"
+          onClick={() => setShowTampte(!showTampte)}
+        >
+          Template
         </button>
       </div>
     </div>
