@@ -12,10 +12,11 @@ type Props = {
   }) => void;
 };
 
-const ViewSetting = ({}: // setWindoSeting,
-// windoDataSetting,
-// setWindoDataSetting,
-Props) => {
+const ViewSetting = ({
+  setWindoSeting,
+  windoDataSetting,
+  setWindoDataSetting,
+}: Props) => {
   return (
     <div className="rounded-lg bg-slate-600 px-3 py-1">
       <div className=""></div>
