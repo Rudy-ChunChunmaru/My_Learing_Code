@@ -15,13 +15,31 @@ function Home() {
       .get("/api/notes/")
       .then((res) => {
         res.data;
-        console.log(res.data);
       })
       .then((data) => {
         setNotes(data);
-        console.log(data);
       })
       .catch((error) => alert(error));
+  };
+
+  const deleteNote = (id) => {
+    api
+      .delete(`/api/notes/delete/${id}`)
+      .then((res) => {
+        if (res.status == 204) alert("Note deleted!");
+        else alert("Failed to delete note.");
+      })
+      .catch((error) => {
+        alert(error);
+      });
+    getNote();
+  };
+
+  const createNote = (e) => {
+    e.preventDefault();
+    api.post("/api/notes/", { content, title }).then((res) => {
+      if (res.status == 201) alert("Note created !!!");
+    });
   };
 
   return <div>Home</div>;

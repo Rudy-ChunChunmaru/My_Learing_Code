@@ -31,7 +31,7 @@ function ProtectedRoute({ children }) {
         setIsAuthorized(false);
       }
     } catch (error) {
-      console.error(error);
+      // console.error(error);
       setIsAuthorized(false);
     }
   };
@@ -44,7 +44,7 @@ function ProtectedRoute({ children }) {
     }
 
     const decode = jwtDecode(token);
-    console.log(decode);
+    // console.log(decode);
     const tokenExpiration = decode.exp;
     const now = Date.now() / 1000;
 
