@@ -41,8 +41,8 @@ const LoginForm = (props: Props) => {
       setSuccess("");
 
       login(value).then((result) => {
-        setError(result.error);
-        setSuccess(result.success);
+        setError(result?.error ? result.error : "");
+        setSuccess(result?.success ? result.success : "");
       });
     });
   };
