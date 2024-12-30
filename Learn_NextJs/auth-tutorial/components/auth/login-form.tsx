@@ -1,5 +1,8 @@
 "use client";
 import { useState, useTransition } from "react";
+
+import { useSearchParams } from "next/navigation";
+
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { LoginSchema } from "@/schemas";
@@ -23,6 +26,12 @@ import { login } from "@/actions/login";
 type Props = {};
 
 const LoginForm = (props: Props) => {
+  const searchParams = useSearchParams();
+  const urlErorr =
+    searchParams.get("error") === "OAuthAccountNotLinked"
+      ? "u'r account being use with different providers !!! "
+      : "";
+
   const [pending, setPending] = useTransition();
   const [error, setError] = useState<string | undefined>();
   const [success, setSuccess] = useState<string | undefined>();
@@ -98,7 +107,7 @@ const LoginForm = (props: Props) => {
               }}
             />
           </div>
-          <FormError massage={error} />
+          <FormError massage={error || urlErorr} />
           <FormSucess massage={success} />
           <Button
             type="submit"
