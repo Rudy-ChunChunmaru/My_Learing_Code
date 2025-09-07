@@ -1,0 +1,12 @@
+version: '3'
+services:
+  drizzle-gateway:
+    image: ghcr.io/drizzle-team/gateway:0.0.23
+    container_name: drizzle-gateway
+    environment:
+      - MASTERPASS=Qwerty@12345
+    ports:
+      - "4983:4983"
+    volumes:
+      - ./gateway-data:/app
+    restart: unless-stopped
