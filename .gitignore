@@ -5,12 +5,14 @@
 /Learn_Django/Learn_React_Django/.venv
 /Learn_Django/Learn_React_Django/Django-React-Tutorial/.venv
 /Learn_Django/Learn_React_Django/Django-React-Tutorial/frontend/node_modules
+logs
 
 # Learn_React
 /Learn_React/gym_typescript/node_modules
 /Learn_React/react_router/node_modules
 /Learn_React/react_redux/node_modules
 /Learn_React/react-router-tutorial/node_modules
+node_modules
 
 # Learn_Nest
 /Learn_NestJs/Eko_Nestjs/belajar-nestjs-dasar/node_modules
